@@ -11,19 +11,19 @@ import java.util.Map;
 public class Réclamation {
     private String titre,ville,description, id,image;
     private Date date;
-    private Double lang,latt;
+    private Double longitude,latt;
 
     public Réclamation() {
     }
 
-    public Réclamation(String titre, String ville, String description, String id, String opId, String image, Date date, Double lang, Double latt) {
+    public Réclamation(String titre, String ville, String description, String id, String opId, String image, Date date, Double longitude, Double latt) {
         this.titre = titre;
         this.ville = ville;
         this.description = description;
         this.id = id;
         this.image = image;
         this.date = date;
-        this.lang = lang;
+        this.longitude = longitude;
         this.latt = latt;
     }
     public Map<String, Object> toMap() {
@@ -34,7 +34,7 @@ public class Réclamation {
         result.put("id", id);
         result.put("image", image);
         result.put("date", date);
-        result.put("lang", lang);
+        result.put("lang", longitude);
         result.put("latt", latt);
         return result;
     }
@@ -88,12 +88,12 @@ public class Réclamation {
         this.image = image;
     }
 
-    public Double getLang() {
-        return lang;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setLang(Double lang) {
-        this.lang = lang;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public Double getLatt() {
@@ -113,7 +113,7 @@ public class Réclamation {
                 ", id='" + id + '\'' +
                 ", image='" + image + '\'' +
                 ", date=" + date +
-                ", lang=" + lang +
+                ", longitude=" + longitude +
                 ", latt=" + latt +
                 '}';
     }

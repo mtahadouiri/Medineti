@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.pc.medineti.Entities.Réclamation;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +49,7 @@ public class NewReclamation extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseDatabase database;
     private Uri downloadUrl;
+    public static LatLng latLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +77,8 @@ public class NewReclamation extends AppCompatActivity {
                 String imei= manager.getSimSerialNumber();
                 Log.d("ID",carrierName+imei);
                 rec.setId(carrierName+imei);
-                rec.setLang(0.0);
-                rec.setLang(1.0);
+                rec.setLatt(latLng.latitude);
+                rec.setLongitude(latLng.longitude);
                 rec.setTitre(txtTitre.getText().toString());
                 rec.setVille(ville.getSelectedItem().toString());
                 postRec(rec);
