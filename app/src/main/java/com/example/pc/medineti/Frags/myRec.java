@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pc.medineti.Adapters.ReclamationAdapter;
+import com.example.pc.medineti.Adapters.myReclamationAdapter;
 import com.example.pc.medineti.Entities.Réclamation;
 import com.example.pc.medineti.R;
 import com.google.firebase.database.ChildEventListener;
@@ -50,7 +50,7 @@ public class myRec extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private ReclamationAdapter adapter;
+    private myReclamationAdapter adapter;
 
     public myRec() {
         // Required empty public constructor
@@ -91,7 +91,7 @@ public class myRec extends Fragment {
         lstRéclamation = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("/user-Reclamations/" + carrierName+imei);
-        adapter = new ReclamationAdapter(lstRéclamation,getContext());
+        adapter = new myReclamationAdapter(lstRéclamation,getContext());
         rv=(RecyclerView)v.findViewById(R.id.rv);
         rv.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -163,8 +163,8 @@ public class myRec extends Fragment {
                 Log.d("DatasnapRemoved", dataSnapshot.getValue().toString());
                 int index = getIndex(post);
                 Log.d("Index", index + "");
-                lstRéclamation.set(index, post);
-                adapter.notifyItemChanged(index, post);
+                lstRéclamation.remove(index);
+                adapter.notifyItemRemoved(index);
             }
 
             @Override
@@ -182,10 +182,10 @@ public class myRec extends Fragment {
     private int getIndex(Réclamation post) {
         int index = -1;
         for (int i = 0; i < lstRéclamation.size(); i++) {
-            if (lstRéclamation.get(i).getId() == post.getId()) {
-                index = i;
+            if (lstRéclamation.get(i).getKey().equals(post.getKey())) {
                 return i;
             }
+
         }
         return index;
     }

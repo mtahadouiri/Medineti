@@ -33,7 +33,8 @@
         <activity android:name=".SuggActivity" />
         <activity android:name=".NewReclamation" />
         <activity android:name=".NewSuggestion" />
-        <activity android:name=".Maps"></activity>
+        <activity android:name=".Maps" />
+        <activity android:name=".ReclamationDetails"></activity>
     </application>
 
 </manifest>

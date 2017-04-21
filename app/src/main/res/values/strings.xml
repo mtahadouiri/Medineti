@@ -213,8 +213,19 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="villes_array">
-        <item>X</item>
-        <item>Y</item>
-        <item>Z</item>
+        <item>Manzel Bourgiba</item>
+        <item>Utique</item>
+        <item>Manzel Jmil</item>
+        <item>Bizerte Nord</item>
+        <item>Bizerte Sud</item>
+        <item>El Alia</item>
+        <item>Sejnane</item>
+        <item>Ghar El Melh</item>
+        <item>Ghazela</item>
+        <item>Jarzouna</item>
+        <item>Joumine</item>
+        <item>Mateur</item>
+        <item>Ras Jbal</item>
+        <item>Tinja</item>
     </string-array>
 </resources>

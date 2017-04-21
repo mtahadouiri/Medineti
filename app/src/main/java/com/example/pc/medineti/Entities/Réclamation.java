@@ -9,23 +9,28 @@ import java.util.Map;
  */
 
 public class Réclamation {
-    private String titre,ville,description, id,image;
+    private String titre,ville,description, id,image,key;
+    private int score;
     private Date date;
     private Double longitude,latt;
 
     public Réclamation() {
     }
 
-    public Réclamation(String titre, String ville, String description, String id, String opId, String image, Date date, Double longitude, Double latt) {
+
+    public Réclamation(String titre, String ville, String description, String id, String image, String key, int score, Date date, Double longitude, Double latt) {
         this.titre = titre;
         this.ville = ville;
         this.description = description;
         this.id = id;
         this.image = image;
+        this.key = key;
+        this.score = score;
         this.date = date;
         this.longitude = longitude;
         this.latt = latt;
     }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("titre", titre);
@@ -33,9 +38,11 @@ public class Réclamation {
         result.put("description", description);
         result.put("id", id);
         result.put("image", image);
+        result.put("score",score);
         result.put("date", date);
         result.put("lang", longitude);
         result.put("latt", latt);
+        result.put("key",key);
         return result;
     }
 
@@ -104,6 +111,23 @@ public class Réclamation {
         this.latt = latt;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+
     @Override
     public String toString() {
         return "Réclamation{" +
@@ -112,6 +136,8 @@ public class Réclamation {
                 ", description='" + description + '\'' +
                 ", id='" + id + '\'' +
                 ", image='" + image + '\'' +
+                ", key='" + key + '\'' +
+                ", score=" + score +
                 ", date=" + date +
                 ", longitude=" + longitude +
                 ", latt=" + latt +

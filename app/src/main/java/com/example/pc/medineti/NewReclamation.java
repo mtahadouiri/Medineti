@@ -81,6 +81,7 @@ public class NewReclamation extends AppCompatActivity {
                 rec.setLongitude(latLng.longitude);
                 rec.setTitre(txtTitre.getText().toString());
                 rec.setVille(ville.getSelectedItem().toString());
+                rec.setScore(0);
                 postRec(rec);
             }
         });
@@ -142,7 +143,7 @@ public class NewReclamation extends AppCompatActivity {
     }
     private void postRec(Réclamation rec) {
         String key = myRef.child("Reclamations").push().getKey();
-
+        rec.setKey(key);
         Map<String, Object> postValues = rec.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/Reclamations/" + key, postValues);

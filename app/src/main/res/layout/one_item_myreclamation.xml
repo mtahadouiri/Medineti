@@ -18,20 +18,50 @@
 
         <ImageView
             android:id="@+id/img_rec"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
 
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/img_rec"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_alignBottom="@+id/btnRecAnnuler">
+
+            <Button
+                android:id="@+id/btnPlus"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="++" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtScore" />
+
+            <Button
+                android:id="@+id/btnMoin"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="--" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/rec_titre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/img_rec"
-            android:layout_marginLeft="@dimen/card_title_margin"
-            android:layout_marginRight="@dimen/card_title_margin"
-            android:layout_marginTop="@dimen/card_title_margin_top"
+            android:layout_below="@+id/img_rec"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="19dp"
+            android:layout_toEndOf="@+id/linearLayout"
+            android:layout_toRightOf="@+id/linearLayout"
             android:text="@string/main_card_title"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -40,35 +70,22 @@
             android:id="@+id/rec_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rec_titre"
-            android:layout_marginBottom="@dimen/card_subtitle_margin"
-            android:layout_marginLeft="@dimen/card_subtitle_margin"
-            android:layout_marginRight="@dimen/card_subtitle_margin"
-            android:layout_marginTop="@dimen/card_button_margin"
+            android:layout_alignLeft="@+id/rec_titre"
+            android:layout_alignStart="@+id/rec_titre"
+            android:layout_below="@+id/rec_titre"
             android:text="@string/main_card_subtitle" />
 
         <Button
-            android:id="@+id/btn_card_main1_action1"
+            android:id="@+id/btnRecAnnuler"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@id/rec_desc"
             android:layout_margin="@dimen/card_button_margin"
-            android:text="@string/main_card_button_1"
+            android:text="Annuler"
             android:textColor="@color/colorAccent" />
-
-        <Button
-            android:id="@+id/btn_card_main1_action2"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rec_desc"
-            android:layout_marginBottom="@dimen/card_button_margin"
-            android:layout_marginTop="@dimen/card_button_margin"
-            android:layout_toEndOf="@id/btn_card_main1_action1"
-            android:text="@string/main_card_button_2"
-            android:textColor="@color/colorAccent"
-            android:layout_toRightOf="@id/btn_card_main1_action1" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>
