@@ -1,28 +1,40 @@
 package com.example.pc.medineti.Entities;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Taha on 20/04/2017.
  */
 
 public class Suggestion {
-    private String ville,description,imei,opId,image;
+    private String titre, ville, description, id, key;
     private Date date;
-    private Long lang,latt;
+    private int count;
 
     public Suggestion() {
     }
 
-    public Suggestion(String ville, String description, String imei, String opId, String image, Date date, Long lang, Long latt) {
-        this.ville = ville;
-        this.description = description;
-        this.imei = imei;
-        this.opId = opId;
-        this.image = image;
-        this.date = date;
-        this.lang = lang;
-        this.latt = latt;
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("titre", titre);
+        result.put("ville", ville);
+        result.put("description", description);
+        result.put("id", id);
+        result.put("count", count);
+        result.put("date", date);
+        result.put("key", key);
+        return result;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
     public String getVille() {
@@ -41,21 +53,14 @@ public class Suggestion {
         this.description = description;
     }
 
-    public String getImei() {
-        return imei;
+    public String getId() {
+        return id;
     }
 
-    public void setImei(String imei) {
-        this.imei = imei;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getOpId() {
-        return opId;
-    }
-
-    public void setOpId(String opId) {
-        this.opId = opId;
-    }
 
     public Date getDate() {
         return date;
@@ -65,39 +70,32 @@ public class Suggestion {
         this.date = date;
     }
 
-    public String getImage() {
-        return image;
+    public String getKey() {
+        return key;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public Long getLang() {
-        return lang;
+    public int getCount() {
+        return count;
     }
 
-    public void setLang(Long lang) {
-        this.lang = lang;
-    }
-
-    public Long getLatt() {
-        return latt;
-    }
-
-    public void setLatt(Long latt) {
-        this.latt = latt;
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override
     public String toString() {
-        return "Suggestion{" +
-                "ville='" + ville + '\'' +
+        return "Réclamation{" +
+                "titre='" + titre + '\'' +
+                ", ville='" + ville + '\'' +
                 ", description='" + description + '\'' +
-                ", imei='" + imei + '\'' +
-                ", opId='" + opId + '\'' +
-                ", date='" + date + '\'' +
-                ", image='" + image + '\'' +
+                ", id='" + id + '\'' +
+                ", key='" + key + '\'' +
+                ", date=" + date +
+                ", count=" + count +
                 '}';
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".RecActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -16,7 +17,7 @@
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#004d68"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -24,6 +25,7 @@
             android:id="@+id/tab_layout_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#004d68"
             app:tabIndicatorColor="@color/white" />
     </android.support.design.widget.AppBarLayout>
 

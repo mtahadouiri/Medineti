@@ -4,11 +4,26 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.pc.medineti.Adapters.ReclamationAdapater;
+import com.example.pc.medineti.Adapters.SuggAdapter;
+import com.example.pc.medineti.Entities.Réclamation;
+import com.example.pc.medineti.Entities.Suggestion;
 import com.example.pc.medineti.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,8 +43,12 @@ public class Suggs extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
+    private Suggs.OnFragmentInteractionListener mListener;
+    private List<Suggestion> lstRéclamation;
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
+    private SuggAdapter adapter;
+    private RecyclerView rv;
     public Suggs() {
         // Required empty public constructor
     }
@@ -65,8 +84,20 @@ public class Suggs extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_suggs, container, false);
-    }
+// Inflate the layout for this fragment
+// Inflate the layout for this fragment
+        View v= inflater.inflate(R.layout.fragment_suggs, container, false);
+        lstRéclamation = new ArrayList<>();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("Suggestions");
+        adapter = new SuggAdapter(lstRéclamation,getContext());
+        rv=(RecyclerView)v.findViewById(R.id.rv);
+        rv.setAdapter(adapter);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rv.setLayoutManager(llm);
+        updateList();
+        return v;       }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -105,5 +136,55 @@ public class Suggs extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private void updateList() {
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                lstRéclamation.add(dataSnapshot.getValue(Suggestion.class));
+                adapter.notifyDataSetChanged();
+                Log.d("DatasnapAdded", dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Suggestion post = dataSnapshot.getValue(Suggestion.class);
+                Log.d("DatasnapChanged", dataSnapshot.getValue().toString());
+                int index = getIndex(post);
+                Log.d("Index", "" + index);
+                lstRéclamation.set(index, post);
+                adapter.notifyItemChanged(index, post);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Suggestion post = dataSnapshot.getValue(Suggestion.class);
+                Log.d("DatasnapRemoved", dataSnapshot.getValue().toString());
+                int index = getIndex(post);
+                Log.d("Index", index + "");
+                lstRéclamation.remove(index);
+                adapter.notifyItemRemoved(index);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private int getIndex(Suggestion post) {
+        int index = -1;
+        for (int i = 0; i < lstRéclamation.size(); i++) {
+            if (lstRéclamation.get(i).getKey().equals(post.getKey())) {
+                return i;
+            }
+        }
+        return index;
     }
 }

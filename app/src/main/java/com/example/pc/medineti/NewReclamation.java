@@ -1,9 +1,11 @@
 package com.example.pc.medineti;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Message;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.pc.medineti.Entities.Réclamation;
 import com.google.android.gms.maps.model.LatLng;
@@ -68,26 +71,51 @@ public class NewReclamation extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+        imgMaps.setVisibility(View.VISIBLE);
+        imgMaps.setEnabled(true);
         btnRec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Réclamation rec = new Réclamation();
-                rec.setDate(new Date());
-                rec.setDescription(txtDesc.getText().toString());
-                rec.setImage(downloadUrl.toString());
-                Log.d("ID",carrierName+imei);
-                rec.setId(carrierName+imei);
-                rec.setLatt(latLng.latitude);
-                rec.setLongitude(latLng.longitude);
-                rec.setTitre(txtTitre.getText().toString());
-                rec.setVille(ville.getSelectedItem().toString());
-                rec.setScore(0);
-                postRec(rec);
+                if (txtTitre.getText().toString().trim().length()>0){
+                    if(txtDesc.getText().toString().trim().length()>0){
+                        if (downloadUrl != null){
+                            if(latLng !=null){
+                                Réclamation rec = new Réclamation();
+                                rec.setDate(new Date());
+                                rec.setDescription(txtDesc.getText().toString());
+                                rec.setImage(downloadUrl.toString());
+                                Log.d("ID",carrierName+imei);
+                                rec.setId(carrierName+imei);
+                                rec.setLatt(latLng.latitude);
+                                rec.setLongitude(latLng.longitude);
+                                rec.setTitre(txtTitre.getText().toString());
+                                rec.setVille(ville.getSelectedItem().toString());
+                                rec.setCount(0);
+                                postRec(rec);
+                            }else {
+                                Toast.makeText(NewReclamation.this,"Veuillez choisir la position en cliquant sur l'icone",Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }else {
+                            Toast.makeText(NewReclamation.this,"Veuillez choisir une image en cliquant sur l'icone",Toast.LENGTH_SHORT).show();
+
+                        }
+                    }else {
+                        Toast.makeText(NewReclamation.this,"Veuillez saisir la description",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(NewReclamation.this,"Veuillez saisir le titre",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         imgMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                imgMaps.setVisibility(View.GONE);
+                imgMaps.setEnabled(false);
                 Intent i = new Intent(NewReclamation.this,Maps.class);
                 startActivity(i);
             }
@@ -114,6 +142,12 @@ public class NewReclamation extends AppCompatActivity {
              file = data.getData();
 
             try {
+                final ProgressDialog progress = new ProgressDialog(this);
+                progress.setMessage("Uploading image :) ");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setIndeterminate(true);
+                progress.setCancelable(false);
+                progress.show();
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file);
                 // Log.d(TAG, String.valueOf(bitmap));
 
@@ -128,6 +162,7 @@ public class NewReclamation extends AppCompatActivity {
                                 // Get a URL to the uploaded content
                                 downloadUrl = taskSnapshot.getDownloadUrl();
                                 Log.d("url",downloadUrl.toString());
+                                progress.dismiss();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

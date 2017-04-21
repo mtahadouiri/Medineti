@@ -2,57 +2,49 @@ package com.example.pc.medineti.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pc.medineti.Entities.Réclamation;
+import com.example.pc.medineti.Entities.Suggestion;
 import com.example.pc.medineti.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Map;
-
-import static com.example.pc.medineti.MainActivity.carrierName;
-import static com.example.pc.medineti.MainActivity.imei;
 
 /**
- * Created by PC on 21/04/2017.
+ * Created by PC on 22/04/2017.
  */
 
-public class ReclamationAdapater extends RecyclerView.Adapter<ReclamationAdapater.PostsViewHolder> {
-    private List<Réclamation> postList;
+public class SuggAdapter extends RecyclerView.Adapter<SuggAdapter.PostsViewHolder> {
+    private List<Suggestion> postList;
 
     private DatabaseReference myRef;
     private FirebaseDatabase database;
     Context ctx;
 
-    public ReclamationAdapater(List<Réclamation> postList, Context context) {
+    public SuggAdapter(List<Suggestion> postList, Context context) {
         this.postList = postList;
         this.ctx = context;
     }
 
     @Override
-    public ReclamationAdapater.PostsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ReclamationAdapater.PostsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.one_item_myreclamation, parent, false));
+    public SuggAdapter.PostsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new SuggAdapter.PostsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.one_item_mysugg, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final ReclamationAdapater.PostsViewHolder holder, int position) {
-        final Réclamation post = postList.get(position);
+    public void onBindViewHolder(final SuggAdapter.PostsViewHolder holder, int position) {
+        final Suggestion post = postList.get(position);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         holder.recTitre.setText(post.getTitre());
         holder.recDescription.setText(post.getDescription());
-        Picasso.with(ctx).load(post.getImage()).into(holder.recImg);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         holder.btnRecAnnuler.setVisibility(View.GONE);
@@ -63,8 +55,8 @@ public class ReclamationAdapater extends RecyclerView.Adapter<ReclamationAdapate
             public void onClick(View v) {
                 Toast.makeText(ctx,"Clicked",Toast.LENGTH_SHORT).show();
                 post.setCount(post.getCount()+1);
-                myRef.child("Reclamations").child(post.getKey()).setValue(post);
-                myRef.child("user-Reclamations").child(post.getId()).child(post.getKey()).setValue(post);
+                myRef.child("Suggestions").child(post.getKey()).setValue(post);
+                myRef.child("user-Suggestions").child(post.getId()).child(post.getKey()).setValue(post);
                 holder.plus.setEnabled(false);
                 holder.minus.setEnabled(true);
             }
@@ -91,7 +83,6 @@ public class ReclamationAdapater extends RecyclerView.Adapter<ReclamationAdapate
 
     class PostsViewHolder extends RecyclerView.ViewHolder {
         TextView recTitre, recDescription, score;
-        ImageView recImg;
         Button btnRecAnnuler;
         Button plus, minus;
         LinearLayout lly;
@@ -100,7 +91,6 @@ public class ReclamationAdapater extends RecyclerView.Adapter<ReclamationAdapate
             super(itemView);
             recTitre = (TextView) itemView.findViewById(R.id.rec_titre);
             recDescription = (TextView) itemView.findViewById(R.id.rec_desc);
-            recImg = (ImageView) itemView.findViewById(R.id.img_rec);
             btnRecAnnuler = (Button) itemView.findViewById(R.id.btnRecAnnuler);
             plus = (Button) itemView.findViewById(R.id.btnPlus);
             minus = (Button) itemView.findViewById(R.id.btnMoin);

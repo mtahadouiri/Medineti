@@ -9,27 +9,14 @@ import java.util.Map;
  */
 
 public class Réclamation {
-    private String titre,ville,description, id,image,key;
-    private int score;
+    private String titre, ville, description, id, image, key;
     private Date date;
-    private Double longitude,latt;
+    private Double longitude, latt;
+    private int count;
 
     public Réclamation() {
     }
 
-
-    public Réclamation(String titre, String ville, String description, String id, String image, String key, int score, Date date, Double longitude, Double latt) {
-        this.titre = titre;
-        this.ville = ville;
-        this.description = description;
-        this.id = id;
-        this.image = image;
-        this.key = key;
-        this.score = score;
-        this.date = date;
-        this.longitude = longitude;
-        this.latt = latt;
-    }
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -38,11 +25,11 @@ public class Réclamation {
         result.put("description", description);
         result.put("id", id);
         result.put("image", image);
-        result.put("score",score);
+        result.put("count", count);
         result.put("date", date);
         result.put("lang", longitude);
         result.put("latt", latt);
-        result.put("key",key);
+        result.put("key", key);
         return result;
     }
 
@@ -119,14 +106,13 @@ public class Réclamation {
         this.key = key;
     }
 
-    public int getScore() {
-        return score;
+    public int getCount() {
+        return count;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setCount(int count) {
+        this.count = count;
     }
-
 
     @Override
     public String toString() {
@@ -137,10 +123,10 @@ public class Réclamation {
                 ", id='" + id + '\'' +
                 ", image='" + image + '\'' +
                 ", key='" + key + '\'' +
-                ", score=" + score +
                 ", date=" + date +
                 ", longitude=" + longitude +
                 ", latt=" + latt +
+                ", count=" + count +
                 '}';
     }
 }

@@ -228,4 +228,13 @@
         <item>Ras Jbal</item>
         <item>Tinja</item>
     </string-array>
+    <string-array name="fields_array">
+        <item>Education</item>
+        <item>Santé</item>
+        <item>Infrastructue</item>
+        <item>Logement</item>
+        <item>Transport</item>
+        <item>Emplois</item>
+        <item>Autre</item>
+    </string-array>
 </resources>

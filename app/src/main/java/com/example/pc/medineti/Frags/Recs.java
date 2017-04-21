@@ -88,18 +88,19 @@ public class Recs extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_recs, container, false);
+        View v = inflater.inflate(R.layout.fragment_recs, container, false);
         lstRéclamation = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Reclamations");
-        adapter = new ReclamationAdapater(lstRéclamation,getContext());
-        rv=(RecyclerView)v.findViewById(R.id.rv);
+        adapter = new ReclamationAdapater(lstRéclamation, getContext());
+        rv = (RecyclerView) v.findViewById(R.id.rv);
         rv.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
         updateList();
-        return v;    }
+        return v;
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -139,6 +140,7 @@ public class Recs extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     private void updateList() {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -153,7 +155,7 @@ public class Recs extends Fragment {
                 Réclamation post = dataSnapshot.getValue(Réclamation.class);
                 Log.d("DatasnapChanged", dataSnapshot.getValue().toString());
                 int index = getIndex(post);
-                Log.d("Index",""+index);
+                Log.d("Index", "" + index);
                 lstRéclamation.set(index, post);
                 adapter.notifyItemChanged(index, post);
             }
