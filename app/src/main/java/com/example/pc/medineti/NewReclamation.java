@@ -33,6 +33,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.pc.medineti.MainActivity.carrierName;
+import static com.example.pc.medineti.MainActivity.imei;
+
 
 // TODO: Controle saisie + Loading .!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // TODO: Design .!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -72,9 +75,6 @@ public class NewReclamation extends AppCompatActivity {
                 rec.setDate(new Date());
                 rec.setDescription(txtDesc.getText().toString());
                 rec.setImage(downloadUrl.toString());
-                TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-                String carrierName = manager.getNetworkOperatorName();
-                String imei= manager.getSimSerialNumber();
                 Log.d("ID",carrierName+imei);
                 rec.setId(carrierName+imei);
                 rec.setLatt(latLng.latitude);
