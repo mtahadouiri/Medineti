@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "401234492311",
+    "firebase_url": "https://medineti-86c36.firebaseio.com",
+    "project_id": "medineti-86c36",
+    "storage_bucket": "medineti-86c36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401234492311:android:cd0ec5acb10237fc",
+        "android_client_info": {
+          "package_name": "com.example.pc.medineti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401234492311-0cf5ll9v9im9vfot1dir5djgh2r2a001.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pc.medineti",
+            "certificate_hash": "93500eef27c2f1d0e6e703ae8f7a8de4fa262033"
+          }
+        },
+        {
+          "client_id": "401234492311-utrdi3r2094eod4rg90c49ouoqi69lq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLXFxDZoFwtykLe4cjg6yNJE1b2o9iG1A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401234492311-utrdi3r2094eod4rg90c49ouoqi69lq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

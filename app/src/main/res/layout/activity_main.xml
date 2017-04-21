@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pc.medineti.Activities.MainActivity">
-
-    <Button
-        android:id="@+id/btnSugg"
+    tools:context="com.example.pc.medineti.MainActivity"
+    android:background="@drawable/bg_fml"
+    android:orientation="vertical"
+    android:weightSum="6"
+    >
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Suggestions" />
+        android:layout_height="0dp"
+        android:src="@drawable/bizerte"
+        android:layout_gravity="center"
+        android:layout_weight="0.7"
+        android:layout_marginTop="5dp"
+        />
 
-    <Button
-        android:id="@+id/btnRec"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="4.3"
+        android:weightSum="1"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/btnSugg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/sugg" />
+
+        <Button
+            android:id="@+id/btnRec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/reclamation" />
+    </LinearLayout>
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reclamations"
-        tools:layout_editor_absoluteY="0dp"
-        app:layout_constraintLeft_toRightOf="@+id/btnSugg"
-        android:layout_marginLeft="32dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/slider"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
