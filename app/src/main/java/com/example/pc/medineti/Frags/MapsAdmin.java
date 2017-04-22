@@ -140,6 +140,7 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
                         lstRéclamation.add(dataSnapshot.getValue(Réclamation.class));
                         Marker m = googleMap.addMarker(new MarkerOptions().position(new LatLng(dataSnapshot.getValue(Réclamation.class).getLatt(),dataSnapshot.getValue(Réclamation.class).getLang())).title(dataSnapshot.getValue(Réclamation.class).getTitre()).snippet(dataSnapshot.getValue(Réclamation.class).getDescription()));
                         m.setTag(dataSnapshot.getValue(Réclamation.class).getId());
+
                         m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                         Log.d("DatasnapAdded", dataSnapshot.getValue().toString());
                     }

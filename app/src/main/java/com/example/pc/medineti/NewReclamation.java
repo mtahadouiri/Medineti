@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.pc.medineti.Entities.Réclamation;
@@ -43,7 +44,7 @@ import static com.example.pc.medineti.MainActivity.imei;
 public class NewReclamation extends AppCompatActivity {
     private Button btnRec;
     private EditText txtTitre, txtDesc;
-    private Spinner ville;
+    private Spinner ville,spFields;
     private ImageButton recImg,imgMaps;
     private ImageView imgRec;
     private int PICK_IMAGE_REQUEST = 1;
@@ -52,6 +53,7 @@ public class NewReclamation extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseDatabase database;
     private Uri downloadUrl;
+    private Switch aSwitch;
     public static LatLng latLng;
 
     @Override
@@ -65,6 +67,8 @@ public class NewReclamation extends AppCompatActivity {
         recImg = (ImageButton) findViewById(R.id.recImg);
         imgRec = (ImageView) findViewById(R.id.imgRec);
         imgMaps=(ImageButton)findViewById(R.id.imgMaps);
+        spFields=(Spinner)findViewById(R.id.spFields);
+        aSwitch =(Switch)findViewById(R.id.switch1);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
@@ -79,12 +83,17 @@ public class NewReclamation extends AppCompatActivity {
                             if(latLng !=null){
                                 Réclamation rec = new Réclamation();
                                 rec.setDate(new Date());
+                                if(aSwitch.isChecked()){
+                                    rec.setAccess("public");
+                                }
+                                else rec.setAccess("private");
                                 rec.setDescription(txtDesc.getText().toString());
                                 rec.setImage(downloadUrl.toString());
                                 Log.d("ID",carrierName+imei);
                                 rec.setId(carrierName+imei);
                                 rec.setLatt(latLng.latitude);
                                 rec.setLang(latLng.longitude);
+                                rec.setField(spFields.getSelectedItem().toString());
                                 rec.setTitre(txtTitre.getText().toString());
                                 rec.setVille(ville.getSelectedItem().toString());
                                 rec.setCount(0);

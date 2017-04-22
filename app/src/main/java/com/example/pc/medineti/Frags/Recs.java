@@ -147,29 +147,36 @@ public class Recs extends Fragment {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                lstRéclamation.add(dataSnapshot.getValue(Réclamation.class));
-                adapter.notifyDataSetChanged();
-                Log.d("DatasnapAdded", dataSnapshot.getValue().toString());
+                if(dataSnapshot.getValue(Réclamation.class).getAccess().equals("public")){
+                    lstRéclamation.add(dataSnapshot.getValue(Réclamation.class));
+                    adapter.notifyDataSetChanged();
+                    Log.d("DatasnapAdded", dataSnapshot.getValue().toString());
+                }
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Réclamation post = dataSnapshot.getValue(Réclamation.class);
-                Log.d("DatasnapChanged", dataSnapshot.getValue().toString());
-                int index = getIndex(post);
-                Log.d("Index", "" + index);
-                lstRéclamation.set(index, post);
-                adapter.notifyItemChanged(index, post);
+                if(post.getAccess().equals("public") || post.getId().equals(carrierName+imei)) {
+                    Log.d("DatasnapChanged", dataSnapshot.getValue().toString());
+                    int index = getIndex(post);
+                    Log.d("Index", "" + index);
+                    lstRéclamation.set(index, post);
+                    adapter.notifyItemChanged(index, post);
+                }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Réclamation post = dataSnapshot.getValue(Réclamation.class);
-                Log.d("DatasnapRemoved", dataSnapshot.getValue().toString());
-                int index = getIndex(post);
-                Log.d("Index", index + "");
-                lstRéclamation.remove(index);
-                adapter.notifyItemRemoved(index);
+                if(post.getAccess().equals("public")) {
+                    Log.d("DatasnapRemoved", dataSnapshot.getValue().toString());
+                    int index = getIndex(post);
+                    Log.d("Index", index + "");
+                    lstRéclamation.remove(index);
+                    adapter.notifyItemRemoved(index);
+                }
             }
 
             @Override
