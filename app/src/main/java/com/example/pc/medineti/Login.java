@@ -82,9 +82,7 @@ public class Login extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("SignIn", "signInWithEmail:onComplete:" + task.isSuccessful());
-                        Intent i = new Intent(Login.this,Admin.class);
-                        startActivity(i);
+
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -92,6 +90,10 @@ public class Login extends AppCompatActivity {
                             Log.w("SignIn", "signInWithEmail:failed", task.getException());
                             Toast.makeText(Login.this, "Authentification failed",
                                     Toast.LENGTH_SHORT).show();
+                        }else {
+                            Log.d("SignIn", "signInWithEmail:onComplete:" + task.isSuccessful());
+                            Intent i = new Intent(Login.this,Admin.class);
+                            startActivity(i);
                         }
 
                         // ...

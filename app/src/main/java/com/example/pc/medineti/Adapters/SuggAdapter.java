@@ -66,8 +66,8 @@ public class SuggAdapter extends RecyclerView.Adapter<SuggAdapter.PostsViewHolde
             public void onClick(View v) {
                 Toast.makeText(ctx,"Clicked",Toast.LENGTH_SHORT).show();
                 post.setCount(post.getCount()-1);
-                myRef.child("Reclamations").child(post.getKey()).setValue(post);
-                myRef.child("user-Reclamations").child(post.getId()).child(post.getKey()).setValue(post);
+                myRef.child("Suggestions").child(post.getKey()).setValue(post);
+                myRef.child("user-Suggestions").child(post.getId()).child(post.getKey()).setValue(post);
                 holder.minus.setEnabled(false);
                 holder.plus.setEnabled(true);
 

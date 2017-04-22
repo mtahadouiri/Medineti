@@ -23,8 +23,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDU4NaJIboMmI83T2RfUzWUdL3dhfX06ic" />
 
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".RecActivity" />
         <activity android:name=".SuggActivity" />
         <activity android:name=".NewReclamation" />
@@ -34,6 +33,10 @@
         <activity android:name=".Admin" />
         <activity android:name=".Login" />
         <activity android:name=".Intro">
+
+        </activity>
+        <activity android:name=".DetailsActivity" />
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

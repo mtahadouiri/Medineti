@@ -147,8 +147,10 @@ public class Recs extends Fragment {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if(dataSnapshot.getValue(Réclamation.class).getAccess().equals("public")){
-                    lstRéclamation.add(dataSnapshot.getValue(Réclamation.class));
+                Réclamation post = dataSnapshot.getValue(Réclamation.class);
+                Log.d("Added",post.toString());
+                if(post.getAccess().contains("public")){
+                    lstRéclamation.add(post);
                     adapter.notifyDataSetChanged();
                     Log.d("DatasnapAdded", dataSnapshot.getValue().toString());
                 }

@@ -19,6 +19,20 @@ public class Réclamation {
     public Réclamation() {
     }
 
+    public Réclamation(String titre, String ville, String description, String id, String image, String key, Date date, Double lang, Double latt, String field, String access, int count) {
+        this.titre = titre;
+        this.ville = ville;
+        this.description = description;
+        this.id = id;
+        this.image = image;
+        this.key = key;
+        this.date = date;
+        this.lang = lang;
+        this.latt = latt;
+        this.field = field;
+        this.access = access;
+        this.count = count;
+    }
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -146,6 +160,8 @@ public class Réclamation {
                 ", date=" + date +
                 ", lang=" + lang +
                 ", latt=" + latt +
+                ", field='" + field + '\'' +
+                ", access='" + access + '\'' +
                 ", count=" + count +
                 '}';
     }

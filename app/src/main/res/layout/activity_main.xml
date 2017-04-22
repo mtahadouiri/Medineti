@@ -40,7 +40,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="0.5"
-            android:background="@drawable/sugg" />
+            android:background="@drawable/suggclick" />
 
         <Button
             android:id="@+id/btnRec"

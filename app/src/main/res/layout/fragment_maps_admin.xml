@@ -9,6 +9,67 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_gravity="right"
+    android:orientation="vertical">
+    <CheckBox
+        android:id="@+id/Education"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Education"
+        android:textColor="@color/orange_primary_dark"
+        android:checked="true"
+        android:enabled="false"/>
+
+    <CheckBox
+        android:id="@+id/Santé"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Santé"
+        android:textColor="@color/cyan_primary_dark"
+        android:checked="true"
+        android:enabled="false"/>
+
+    <CheckBox
+        android:id="@+id/Infrastructue"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Infrastructue"
+        android:textColor="@color/green_primary_dark"
+        android:checked="true"
+        android:enabled="false"/>
+
+    <CheckBox
+        android:id="@+id/Logement"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Logement"
+        android:textColor="@color/red_primary_dark"
+        android:checked="true"
+        android:enabled="false"/>
+
+    <CheckBox
+        android:id="@+id/Transport"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Transport"
+        android:textColor="@color/blue_primary_dark"
+        android:checked="true"
+        android:enabled="false"/>
+
+    <CheckBox
+        android:id="@+id/Emplois"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Emplois"
+        android:textColor="@color/purple_primary_dark"
+        android:checked="true"
+        android:enabled="false"/>
+
+</LinearLayout>
 
 
 

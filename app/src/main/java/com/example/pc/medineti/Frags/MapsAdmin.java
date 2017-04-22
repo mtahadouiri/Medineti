@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pc.medineti.Entities.Réclamation;
+import com.example.pc.medineti.Entities.Suggestion;
 import com.example.pc.medineti.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -43,7 +45,7 @@ import static android.content.ContentValues.TAG;
  * Use the {@link MapsAdmin#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListener{
+public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,6 +62,7 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
     private GoogleMap googleMap;
     private OnFragmentInteractionListener mListener;
     private ArrayList<Réclamation> lstRéclamation;
+    private ArrayList<Suggestion> lstSuggestions;
     private FirebaseDatabase database;
     private DatabaseReference referenceReclamations;
     private DatabaseReference referenceSugg;
@@ -67,6 +70,7 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
     private Marker mPerth;
     private Marker mSydney;
     private Marker mBrisbane;
+    private HashMap<String, Marker> hashMapMarker;
 
     public MapsAdmin() {
         // Required empty public constructor
@@ -105,10 +109,13 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_maps_admin, container, false);
         lstRéclamation = new ArrayList<>();
+        lstSuggestions = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
+        hashMapMarker = new HashMap<>();
+
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
@@ -120,12 +127,13 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
                 LatLng bizerte = new LatLng(37.2746, 9.8627);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bizerte, 15));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bizerte, 12));
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         marker.showInfoWindow();
-                       googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 18));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+
                         return true;
                     }
                 });
@@ -139,10 +147,35 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         lstRéclamation.add(dataSnapshot.getValue(Réclamation.class));
-                        Marker m = googleMap.addMarker(new MarkerOptions().position(new LatLng(dataSnapshot.getValue(Réclamation.class).getLatt(),dataSnapshot.getValue(Réclamation.class).getLang())).title(dataSnapshot.getValue(Réclamation.class).getTitre()).snippet(dataSnapshot.getValue(Réclamation.class).getDescription()));
+                        Marker m = googleMap.addMarker(new MarkerOptions().position(new LatLng(dataSnapshot.getValue(Réclamation.class).getLatt(), dataSnapshot.getValue(Réclamation.class).getLang())).title(dataSnapshot.getValue(Réclamation.class).getTitre()).snippet(dataSnapshot.getValue(Réclamation.class).getDescription()));
                         m.setTag(dataSnapshot.getValue(Réclamation.class).getId());
+                        hashMapMarker.put(m.getTag().toString(),m);
+                        switch (dataSnapshot.getValue(Réclamation.class).getField()) {
+                            case "Education":
+                                m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                                break;
+                            case "Santé":
+                                m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                                break;
+                            case "Infrastructue":
+                                m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
-                        m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                                break;
+                            case "Logement":
+                                m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+                                break;
+                            case "Transport":
+                                m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+                                break;
+                            case "Emplois":
+                                m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+
+                                break;
+                            default:
+                                m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        }
                         Log.d("DatasnapAdded", dataSnapshot.getValue().toString());
                     }
 
@@ -162,36 +195,9 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
                         int index = getIndex(post);
                         Log.d("Index", index + "");
                         lstRéclamation.remove(index);
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                referenceSugg = database.getReference("Suggestions");
-                referenceSugg.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        lstRéclamation.add(dataSnapshot.getValue(Réclamation.class));
-                        Marker m = googleMap.addMarker(new MarkerOptions().position(new LatLng(dataSnapshot.getValue(Réclamation.class).getLatt(),dataSnapshot.getValue(Réclamation.class).getLang())).title(dataSnapshot.getValue(Réclamation.class).getTitre()).snippet(dataSnapshot.getValue(Réclamation.class).getDescription()));
-                        m.setTag(dataSnapshot.getValue(Réclamation.class).getId());
-                        m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-                        Log.d("DatasnapAdded", dataSnapshot.getValue().toString());
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        Marker marker = hashMapMarker.get(post.getId());
+                        marker.remove();
+                        hashMapMarker.remove(post.getId());
 
                     }
 
@@ -205,10 +211,10 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
 
                     }
                 });
+
 
             }
         });
-
 
 
         return v;
@@ -220,6 +226,7 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
             mListener.onFragmentInteraction(uri);
         }
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -239,7 +246,7 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-       Toast.makeText(getContext(),""+marker.getTag(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "" + marker.getTag(), Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -257,13 +264,14 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-        private int getIndex(Réclamation post) {
-            int index = -1;
-            for (int i = 0; i < lstRéclamation.size(); i++) {
-                if (lstRéclamation.get(i).getKey().equals(post.getKey())) {
-                    return i;
-                }
+
+    private int getIndex(Réclamation post) {
+        int index = -1;
+        for (int i = 0; i < lstRéclamation.size(); i++) {
+            if (lstRéclamation.get(i).getKey().equals(post.getKey())) {
+                return i;
             }
-            return index;
         }
+        return index;
+    }
 }
