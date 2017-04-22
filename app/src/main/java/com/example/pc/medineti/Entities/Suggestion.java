@@ -11,6 +11,7 @@ import java.util.Map;
 public class Suggestion {
     private String titre, ville, description, id, key;
     private Date date;
+    private String field,access;
     private int count;
 
     public Suggestion() {
@@ -24,6 +25,8 @@ public class Suggestion {
         result.put("description", description);
         result.put("id", id);
         result.put("count", count);
+        result.put("access", access);
+        result.put("field",field);
         result.put("date", date);
         result.put("key", key);
         return result;
@@ -84,6 +87,22 @@ public class Suggestion {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
     }
 
     @Override

@@ -11,7 +11,9 @@ import java.util.Map;
 public class Réclamation {
     private String titre, ville, description, id, image, key;
     private Date date;
-    private Double longitude, latt;
+    private Double lang, latt;
+    private String field;
+    private String access;
     private int count;
 
     public Réclamation() {
@@ -27,8 +29,10 @@ public class Réclamation {
         result.put("image", image);
         result.put("count", count);
         result.put("date", date);
-        result.put("lang", longitude);
+        result.put("lang", lang);
         result.put("latt", latt);
+        result.put("field",field);
+        result.put("access",access);
         result.put("key", key);
         return result;
     }
@@ -82,12 +86,12 @@ public class Réclamation {
         this.image = image;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public Double getLang() {
+        return lang;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLang(Double lang) {
+        this.lang = lang;
     }
 
     public Double getLatt() {
@@ -114,6 +118,22 @@ public class Réclamation {
         this.count = count;
     }
 
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
+    }
+
     @Override
     public String toString() {
         return "Réclamation{" +
@@ -124,7 +144,7 @@ public class Réclamation {
                 ", image='" + image + '\'' +
                 ", key='" + key + '\'' +
                 ", date=" + date +
-                ", longitude=" + longitude +
+                ", lang=" + lang +
                 ", latt=" + latt +
                 ", count=" + count +
                 '}';

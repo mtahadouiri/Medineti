@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "401234492311-ekvg22q512ganbfmlq51e7d7v7j41k1c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pc.medineti",
+            "certificate_hash": "87ff4b0ad90d964153fe3584763fc87e3e9e9747"
+          }
+        },
+        {
           "client_id": "401234492311-0cf5ll9v9im9vfot1dir5djgh2r2a001.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

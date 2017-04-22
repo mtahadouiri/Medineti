@@ -1,17 +1,14 @@
 package com.example.pc.medineti;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Message;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -87,7 +84,7 @@ public class NewReclamation extends AppCompatActivity {
                                 Log.d("ID",carrierName+imei);
                                 rec.setId(carrierName+imei);
                                 rec.setLatt(latLng.latitude);
-                                rec.setLongitude(latLng.longitude);
+                                rec.setLang(latLng.longitude);
                                 rec.setTitre(txtTitre.getText().toString());
                                 rec.setVille(ville.getSelectedItem().toString());
                                 rec.setCount(0);

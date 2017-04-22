@@ -96,6 +96,8 @@ public class myRec extends Fragment {
         rv.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+        llm.setReverseLayout(true);
+        llm.setStackFromEnd(true);
         rv.setLayoutManager(llm);
         updateList();
         return v;
