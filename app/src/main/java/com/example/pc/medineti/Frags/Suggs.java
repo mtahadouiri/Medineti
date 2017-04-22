@@ -99,7 +99,8 @@ public class Suggs extends Fragment {
         llm.setStackFromEnd(true);
         rv.setLayoutManager(llm);
         updateList();
-        return v;       }
+        return v;
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

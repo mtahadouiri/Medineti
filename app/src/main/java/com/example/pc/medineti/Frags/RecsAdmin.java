@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pc.medineti.Adapters.ReclamationAdapater;
+import com.example.pc.medineti.Adapters.myReclamationAdapter;
 import com.example.pc.medineti.Entities.Réclamation;
 import com.example.pc.medineti.R;
 import com.google.firebase.database.ChildEventListener;
@@ -46,7 +47,7 @@ public class RecsAdmin extends Fragment {
     private List<Réclamation> lstRéclamation;
     private FirebaseDatabase database;
     private DatabaseReference reference;
-    private ReclamationAdapater adapter;
+    private myReclamationAdapter adapter;
     private RecyclerView rv;
     private OnFragmentInteractionListener mListener;
 
@@ -91,7 +92,7 @@ public class RecsAdmin extends Fragment {
         lstRéclamation = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Reclamations");
-        adapter = new ReclamationAdapater(lstRéclamation, getContext());
+        adapter = new myReclamationAdapter(lstRéclamation, getContext());
         rv = (RecyclerView) v.findViewById(R.id.rv);
         rv.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -145,36 +146,34 @@ public class RecsAdmin extends Fragment {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if(dataSnapshot.getValue(Réclamation.class).getAccess().equals("public")){
+
                     lstRéclamation.add(dataSnapshot.getValue(Réclamation.class));
                     adapter.notifyDataSetChanged();
                     Log.d("DatasnapAdded", dataSnapshot.getValue().toString());
-                }
 
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Réclamation post = dataSnapshot.getValue(Réclamation.class);
-                if(post.getAccess().equals("public") || post.getId().equals(carrierName+imei)) {
                     Log.d("DatasnapChanged", dataSnapshot.getValue().toString());
                     int index = getIndex(post);
                     Log.d("Index", "" + index);
                     lstRéclamation.set(index, post);
                     adapter.notifyItemChanged(index, post);
-                }
+
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Réclamation post = dataSnapshot.getValue(Réclamation.class);
-                if(post.getAccess().equals("public")) {
+
                     Log.d("DatasnapRemoved", dataSnapshot.getValue().toString());
                     int index = getIndex(post);
                     Log.d("Index", index + "");
                     lstRéclamation.remove(index);
                     adapter.notifyItemRemoved(index);
-                }
+
             }
 
             @Override

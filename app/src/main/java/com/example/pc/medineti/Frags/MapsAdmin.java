@@ -119,12 +119,13 @@ public class MapsAdmin extends Fragment implements GoogleMap.OnMarkerClickListen
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
+                LatLng bizerte = new LatLng(37.2746, 9.8627);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bizerte, 15));
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        Toast.makeText(getContext(),""+marker.getTag(),Toast.LENGTH_SHORT).show();
                         marker.showInfoWindow();
-
+                       googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 18));
                         return true;
                     }
                 });

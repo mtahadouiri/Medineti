@@ -24,11 +24,6 @@
             android:value="AIzaSyDU4NaJIboMmI83T2RfUzWUdL3dhfX06ic" />
 
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".RecActivity" />
         <activity android:name=".SuggActivity" />
@@ -37,7 +32,14 @@
         <activity android:name=".Maps" />
         <activity android:name=".ReclamationDetails" />
         <activity android:name=".Admin" />
-        <activity android:name=".Login"></activity>
+        <activity android:name=".Login" />
+        <activity android:name=".Intro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
